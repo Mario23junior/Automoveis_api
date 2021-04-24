@@ -1,8 +1,10 @@
 package com.project.carros.Controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,4 +25,9 @@ public class CarrosController {
 	public List<Carro> list(){
 		return service.ListCarro();
 	}
-}
+	
+	@GetMapping("/{id}")
+    public Optional<Carro> listId(@PathVariable Long id) {
+    	return service.listIdCarro(id);
+       }
+	}
