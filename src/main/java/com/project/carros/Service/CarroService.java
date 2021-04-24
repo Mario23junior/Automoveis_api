@@ -24,4 +24,8 @@ public class CarroService {
 		return CarReposi.findById(id);
 	}
 	
+	public Iterable<Carro> listByType(String tipo){
+		return CarReposi.findByTipo(tipo);
+	}
+	
 }

@@ -12,7 +12,7 @@ import com.project.carros.Model.Carro;
 import com.project.carros.Service.CarroService;
 
 @RestController
-@RequestMapping("/api/v1/automoveis/")
+@RequestMapping("/api/v1/automoveis")
 public class CarrosController {
    
 	private CarroService service;
@@ -30,4 +30,10 @@ public class CarrosController {
     public Optional<Carro> listId(@PathVariable Long id) {
     	return service.listIdCarro(id);
        }
+	
+	@GetMapping("/tipo/{tipo}")
+	public Iterable<Carro> listByType(@PathVariable("tipo") String tipo){
+		return service.listByType(tipo);
+	}
+	
 	}
