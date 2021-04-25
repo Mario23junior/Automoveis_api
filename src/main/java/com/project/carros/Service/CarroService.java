@@ -44,5 +44,9 @@ public class CarroService {
 					return updateData;
  				}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NO_CONTENT,"Não foi possivel atualziar dados"));
 	}
+	
+	public void delete(@PathVariable Long id) {
+		  CarReposi.deleteById(id);
+	}
 		
 }

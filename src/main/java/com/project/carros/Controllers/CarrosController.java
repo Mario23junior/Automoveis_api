@@ -3,6 +3,7 @@ package com.project.carros.Controllers;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,7 +48,13 @@ public class CarrosController {
 	@PutMapping("/{id}")
 	public void update(@PathVariable Long id, @RequestBody Carro carro) {
 		service.update(carro, id);
-		
+	}
+	
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable Long id) {
+		Optional<Carro> id_carro = listId(id);
+		if(id_carro.isPresent())
+		service.delete(id);
 	}
 
 }
