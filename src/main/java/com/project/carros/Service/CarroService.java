@@ -27,5 +27,9 @@ public class CarroService {
 	public Iterable<Carro> listByType(String tipo){
 		return CarReposi.findByTipo(tipo);
 	}
-	
+
+	public Carro save(Carro carro) {
+		return CarReposi.save(carro);
+	}
+		
 }
