@@ -31,5 +31,15 @@ public class CarroService {
 	public Carro save(Carro carro) {
 		return CarReposi.save(carro);
 	}
+	
+	public Optional<Carro> update(Carro carro, @PathVariable Long id) {
+		return CarReposi
+				.findById(id)
+				.map(updateData ->{
+					carro.setId(updateData.getId());
+					CarReposi.save(carro);
+					return updateData;
+ 				});
+	}
 		
 }
