@@ -23,14 +23,14 @@ public class CarroService {
 	 
 	public List<CarrosDTO> ListCarro() {
 		List<Carro> carros = CarReposi.findAll();
-		List<CarrosDTO> listCarros = carros.stream().map(CarrosDTO::new)
+		List<CarrosDTO> listCarros = carros.stream().map(carroConvert -> CarrosDTO.converte(carroConvert))
 		                           .collect(Collectors.toList());
 		
 		return listCarros;
  	}
 	
 	public Optional<CarrosDTO> listIdCarro(@PathVariable Long id){
-		return CarReposi.findById(id).map(CarrosDTO::new);
+		return CarReposi.findById(id).map(carroConvert -> CarrosDTO.converte(carroConvert));
 		
 		
 	}
@@ -39,12 +39,12 @@ public class CarroService {
 		 
 		 return CarReposi.findByTipo(tipo)
 				  .stream()
-				  .map(CarrosDTO::new).collect(Collectors.toList());
+				  .map(carroConvert -> CarrosDTO.converte(carroConvert)).collect(Collectors.toList());
 	}
 
 
-	public Carro save(Carro carro) {
-		return CarReposi.save(carro);
+	public CarrosDTO save(Carro carro) {
+		return CarrosDTO.converte(CarReposi.save(carro));
 	}
 	
 	public void update(@RequestBody Carro carro, @PathVariable Long id) {
