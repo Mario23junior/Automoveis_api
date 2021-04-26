@@ -1,5 +1,7 @@
 package com.project.carros.dto;
 
+import org.modelmapper.ModelMapper;
+
 import com.project.carros.Model.Carro;
 
 public class CarrosDTO {
@@ -8,10 +10,9 @@ public class CarrosDTO {
 	private String nome;
 	private String tipo;
 	
-	public CarrosDTO(Carro c) {
-		this.id = c.getId();
-		this.nome = c.getNome();
-		this.tipo = c.getTipo();
+	public static CarrosDTO converte(Carro carro) {
+	  ModelMapper modelMapper = new ModelMapper();
+	  return modelMapper.map(carro, CarrosDTO.class);
  	}
 	
 	
