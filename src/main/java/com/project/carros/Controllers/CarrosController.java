@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.carros.Model.Carro;
 import com.project.carros.Repository.CarroRepository;
 import com.project.carros.Service.CarroService;
+import com.project.carros.dto.CarrosDTO;
 
 @RestController
 @RequestMapping("/api/v1/automoveis")
@@ -33,7 +34,7 @@ public class CarrosController {
 	
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-	public List<Carro> list(){
+	public List<CarrosDTO> list(){
 		return service.ListCarro();
 	}
 	
@@ -46,12 +47,12 @@ public class CarrosController {
 		               ResponseEntity.ok(c))
 	                  .orElse(ResponseEntity.notFound()
 	                  .build());
-	
+	     
 	}
 	
 	@GetMapping("/tipo/{tipo}")
-	public ResponseEntity<List<Carro>> listByType(@PathVariable("tipo") String tipo){
-		List<Carro> carros = service.listByType(tipo);
+	public ResponseEntity<List<CarrosDTO>> listByType(@PathVariable("tipo") String tipo){
+		List<CarrosDTO> carros = service.listByType(tipo);
 		
 		return carros.isEmpty() ? 
 				ResponseEntity.noContent().build() :

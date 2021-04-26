@@ -2,6 +2,7 @@ package com.project.carros.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.project.carros.Model.Carro;
 import com.project.carros.Repository.CarroRepository;
+import com.project.carros.dto.CarrosDTO;
 
 @Service
 public class CarroService {
@@ -19,17 +21,25 @@ public class CarroService {
 	@Autowired
 	private CarroRepository CarReposi;
 	 
-	public List<Carro> ListCarro() {
-		return CarReposi.findAll();
-	}
+	public List<CarrosDTO> ListCarro() {
+		List<Carro> carros = CarReposi.findAll();
+		List<CarrosDTO> listCarros = carros.stream().map(CarrosDTO::new)
+		                           .collect(Collectors.toList());
+		
+		return listCarros;
+ 	}
 	
 	public Optional<Carro> listIdCarro(@PathVariable Long id){
 		return CarReposi.findById(id);
 	}
 	
-	public List<Carro> listByType(String tipo){
-		return CarReposi.findByTipo(tipo);
+	public List<CarrosDTO> listByType(String tipo){
+		 
+		 return CarReposi.findByTipo(tipo)
+				  .stream()
+				  .map(CarrosDTO::new).collect(Collectors.toList());
 	}
+
 
 	public Carro save(Carro carro) {
 		return CarReposi.save(carro);
