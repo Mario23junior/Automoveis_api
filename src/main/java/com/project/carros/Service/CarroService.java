@@ -47,14 +47,14 @@ public class CarroService {
 		return CarrosDTO.converte(CarReposi.save(carro));
 	}
 	
-	public void update(@RequestBody Carro carro, @PathVariable Long id) {
-		    CarReposi
+	public CarrosDTO update(@RequestBody Carro carro, @PathVariable Long id) {
+		    return CarReposi
 				.findById(id)
 				.map(updateData ->{
 					carro.setId(updateData.getId());
 					CarReposi.save(carro);
-					return updateData;
- 				}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NO_CONTENT,"Não foi possivel atualziar dados"));
+					return CarrosDTO.converte(carro);
+ 				}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NO_CONTENT,"Não foi possivel atualizar dados"));
 	}
 	
 	public void delete(Long id) {		  		  
