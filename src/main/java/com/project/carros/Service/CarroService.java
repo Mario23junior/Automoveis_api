@@ -29,8 +29,10 @@ public class CarroService {
 		return listCarros;
  	}
 	
-	public Optional<Carro> listIdCarro(@PathVariable Long id){
-		return CarReposi.findById(id);
+	public Optional<CarrosDTO> listIdCarro(@PathVariable Long id){
+		return CarReposi.findById(id).map(CarrosDTO::new);
+		
+		
 	}
 	
 	public List<CarrosDTO> listByType(String tipo){
@@ -55,8 +57,9 @@ public class CarroService {
  				}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NO_CONTENT,"Não foi possivel atualziar dados"));
 	}
 	
-	public void delete(@PathVariable Long id) {
-		  CarReposi.deleteById(id);
-	}
-		
+	public void delete(Long id) {		  		  
+		  if(listIdCarro(id).isPresent()) {
+			  CarReposi.deleteById(id);
+		  }
+     }
 }

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.carros.Model.Carro;
-import com.project.carros.Repository.CarroRepository;
 import com.project.carros.Service.CarroService;
 import com.project.carros.dto.CarrosDTO;
 
@@ -26,7 +25,6 @@ public class CarrosController {
    
 	private CarroService service;
 	
-	private CarroRepository reposi;
 	
 	public CarrosController(CarroService service) {
 	  this.service = service;
@@ -39,9 +37,9 @@ public class CarrosController {
 	}
 	
 	@GetMapping("/{id}")
-    public ResponseEntity<Carro> listId(@PathVariable Long id) {
+    public ResponseEntity<CarrosDTO> listId(@PathVariable Long id) {
     	
-		Optional<Carro> carro = service.listIdCarro(id);
+		Optional<CarrosDTO> carro = service.listIdCarro(id);
 		
 		return carro.map(c -> 
 		               ResponseEntity.ok(c))
@@ -71,10 +69,9 @@ public class CarrosController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable Long id) {
-		Optional<Carro> id_carro = reposi.findById(id);
-		if(id_carro.isPresent())
+	public ResponseEntity<CarrosDTO> delete(@PathVariable Long id) {
 		service.delete(id);
+        return ResponseEntity.ok().build();
 	}
 
 }
