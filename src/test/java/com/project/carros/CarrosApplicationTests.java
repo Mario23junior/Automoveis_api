@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.DisplayName;
@@ -51,7 +52,42 @@ class CarrosApplicationTests {
 		// verificando se o objeto foi deletado
 		assertFalse(service.listIdCarro(id).isPresent());
 	}
+	 
+	@Test
+	@DisplayName("Listando dados do banco de dados")
+	public void listByIdAll() {
+		List<CarrosDTO> listCarros = service.ListCarro();
+		
+		assertEquals(30, listCarros.size());	
+	}
+	@Test
+	@DisplayName("testando buscar por id")
+	public void listById() {
+		
+		Optional<CarrosDTO> listById = service.listIdCarro(11L);
+		assertTrue(listById.isPresent());
+		
+		CarrosDTO c = listById.get();
+		
+		assertEquals("Ferrari FF", c.getNome());
+	}
 	
-	
+	@Test
+	@DisplayName("Testando listagem por tipo")
+	public void listType() {
+	   
+		List<CarrosDTO> carrosList1 = service.listByType("luxo");
+		List<CarrosDTO> carrosList2 = service.listByType("classicos");
+		List<CarrosDTO> carrosList3 = service.listByType("esportivos");
+		
+		List<CarrosDTO> carrosList4 = service.listByType("x");
+		
+		assertEquals(10, carrosList1.size());
+		assertEquals(10, carrosList2.size());
+		assertEquals(10, carrosList3.size());
+		
+		assertEquals(0, carrosList4.size());
 
+
+	}
 }
