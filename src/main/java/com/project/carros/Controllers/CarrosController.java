@@ -62,18 +62,14 @@ public class CarrosController {
 	
 	@PostMapping
 	public ResponseEntity<CarrosDTO> save(@RequestBody Carro carro) {
-		  try {
-			  CarrosDTO c = service.save(carro);
-			
-			  URI location = getUric(c.getId());
-			  
-			  return ResponseEntity.created(location).build();
-		  }catch(Exception ex) {
-			  return ResponseEntity.badRequest().build();
-		  }
+	    CarrosDTO c = service.save(carro);
+	    
+	    URI location = getUri(c.getId());
+	    return ResponseEntity.created(location).build();
+		
  	}
 	
-	private URI getUric(Long id) {
+	private URI getUri(Long id) {
 		return ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(id).toUri();
 		

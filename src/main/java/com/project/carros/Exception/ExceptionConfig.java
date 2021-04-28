@@ -14,4 +14,12 @@ public class ExceptionConfig {
 	 public ResponseEntity<?> errorNotFound(Exception e) {
  		 return ResponseEntity.notFound().build();
 	 }	 
+	 
+	 
+	 @ExceptionHandler({
+		 IllegalArgumentException.class
+	 })
+	 public ResponseEntity<?> erroBadRequest(Exception ex) {
+		 return ResponseEntity.badRequest().build();
+	 }
 }
