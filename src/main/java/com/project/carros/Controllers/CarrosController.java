@@ -2,7 +2,6 @@ package com.project.carros.Controllers;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,14 +39,9 @@ public class CarrosController {
 	
 	@GetMapping("/{id}")
     public ResponseEntity<CarrosDTO> listId(@PathVariable Long id) {
-    	
-		Optional<CarrosDTO> carro = service.listIdCarro(id);
-		
-		return carro.map(c -> 
-		               ResponseEntity.ok(c))
-	                  .orElse(ResponseEntity.notFound()
-	                  .build());
-	     
+  
+		CarrosDTO carro = service.listIdCarro(id);
+		return ResponseEntity.ok(carro);    
 	}
 	
 	@GetMapping("/tipo/{tipo}")
