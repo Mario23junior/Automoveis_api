@@ -29,8 +29,9 @@ public class CarroService {
 		return listCarros;
  	}
 	
-	public Optional<CarrosDTO> listIdCarro(@PathVariable Long id){
-		return CarReposi.findById(id).map(carroConvert -> CarrosDTO.converte(carroConvert));
+	public CarrosDTO listIdCarro(@PathVariable Long id){
+		Optional<Carro> carros = CarReposi.findById(id);
+		return carros.map(CarrosDTO::converte).orElseThrow(() -> new com.project.carros.Exception.ObjectNotFoundException("Carro não encontrado"));
 		
 		
 	}
