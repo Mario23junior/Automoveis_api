@@ -29,7 +29,7 @@ public class ExceptionConfig extends ResponseEntityExceptionHandler{
 	 }
 	 
 	 protected ResponseEntity<Object> HttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex, HttpHeaders header) {
-		 return new ResponseEntity<>(new ErroException("Operação não permitida"),HttpStatus.METHOD_NOT_ALLOWED);
+		 return new ResponseEntity<>(new ErroException("Operação não permitida forma de requisição incorreta"),HttpStatus.METHOD_NOT_ALLOWED);
 	 }
 }
 
