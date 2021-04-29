@@ -3,6 +3,7 @@ package com.project.carros.Exception;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -30,6 +31,13 @@ public class ExceptionConfig extends ResponseEntityExceptionHandler{
 	 
 	 protected ResponseEntity<Object> HttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex, HttpHeaders header) {
 		 return new ResponseEntity<>(new ErroException("Operação não permitida forma de requisição incorreta"),HttpStatus.METHOD_NOT_ALLOWED);
+	 }
+	 
+	 @ExceptionHandler({
+		 AccessDeniedException.class
+	 })
+	 public ResponseEntity<?> accessDanield() {
+		 return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErroException("você não tem credenciais para essa url"));
 	 }
 }
 
